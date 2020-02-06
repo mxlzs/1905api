@@ -62,6 +62,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'filter'    => Middleware\filter::class,
+        'chenk.token'    => Middleware\chenkToken::class,
     ];
 
     /**

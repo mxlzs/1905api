@@ -13,6 +13,8 @@
 
 Route::get('/', function () {
     return view('welcome');
+//    return phpinfo();
+
 });
 Route::any('/test/pay','TestController@alipay');
 
@@ -20,7 +22,9 @@ Route::post('/api/test','Api\TestController@test');
 Route::post('/api/user/reg','Api\TestController@reg');
 Route::post('/api/user/login','Api\TestController@login');
 Route::get('/api/user/list','Api\TestController@userList')->middleware('filter');
+Route::get('/test/brush','Api\TestController@brush')->middleware('filter','chenkToken');
 Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
