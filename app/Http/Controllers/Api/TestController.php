@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Model\User;
 use Illuminate\Support\Facades\Redis;
+use GuzzleHttp\Client;
 class TestController extends Controller
 {
     public function reg(Request $request){
@@ -161,6 +162,52 @@ class TestController extends Controller
 
         $response=file_get_contents($url);
         echo $response;
+    }
+    public function md52(){
+//        echo __METHOD__;die;
+//        echo __LINE__;die;
+        $key='1905';//签名使用的key 发送端和接收端使用同一个key 计算签名
+//       代签名的数据
+        $order_info=[
+            'order_id'=>'LN_'.mt_rand(111111,999999),
+            'order_amount'=>mt_rand(1111,9999),
+            'uid'=>12345,
+            'add_time'=>time(),
+        ];
+//        数据转换成json数据
+        $data_json=json_encode($order_info);
+//        echo '$data_json';
+////        计算签名
+        $sing=md5($data_json.$key);
+//        post  （form_data）发送数据
+        $client=new Client();
+        $url="http://1905admin.com/check2";
+        $response= $client->request('POST',$url,[
+                'form_params' => [
+                   'data'=>$data_json,
+                    'sing'=>$sing,
+                    ]
+        ]);
+//        接收服务器端响应的数据
+        $response_data=$response->getBody();
+        echo $response_data;
+    }
+
+    public function sign3(){
+        $data='djy';  //待签名的数据
+//        计算签名
+        $path=storage_path('keys/priv.key2');  //私钥路经
+//        echo file_get_contents($path);
+//        echo $path;die;
+        $pkeyid = openssl_pkey_get_private("file://".$path);
+//        得到的计算签名 $signature
+        openssl_sign($data, $signature, $pkeyid);
+        openssl_free_key($pkeyid);
+//        var_dump($signature);
+
+//        base64编码  方便传输
+        $sign_str=base64_encode($signature);
+        echo "base64 后的 签名：".$sign_str;
     }
 
 }

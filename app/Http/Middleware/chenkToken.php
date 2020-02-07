@@ -21,7 +21,7 @@ class chenkToken
 
         //请求passport 实现鉴权
         $client = new Client();
-        $response = $client->request('POST', 'http://passport.1905.com/auth', [
+        $response = $client->request('POST', 'http://1905.com/auth', [
             'form_params' => [
                 'uid' => $uid,
                 'token' => $token,
@@ -34,7 +34,6 @@ class chenkToken
         if($arr['errno']>0){        //鉴权失败
             echo "鉴权失败";die;
         }
-
         return $next($request);
     }
 }
