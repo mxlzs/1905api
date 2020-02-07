@@ -23,6 +23,7 @@ Route::post('/api/user/reg','Api\TestController@reg');
 Route::post('/api/user/login','Api\TestController@login');
 Route::get('/api/user/list','Api\TestController@userList')->middleware('filter');
 Route::get('/test/brush','Api\TestController@brush')->middleware('filter','chenkToken');
+Route::get('/md5','Api\TestController@md5');
 Auth::routes();
 
 
