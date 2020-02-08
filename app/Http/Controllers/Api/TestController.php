@@ -88,12 +88,6 @@ class TestController extends Controller
 //        $count=Redis::incr($redis_key);
 //        echo 'count: '.$count;
     }
-
-    public function md1(){
-
-    }
-
-
 //    public function brush(){
 //        $data=[
 //          'username'=>'zhangsan',
@@ -176,9 +170,10 @@ class TestController extends Controller
         ];
 //        数据转换成json数据
         $data_json=json_encode($order_info);
-//        echo '$data_json';
+//        echo $data_json;die;
 ////        计算签名
         $sing=md5($data_json.$key);
+//        echo $sing;die;
 //        post  （form_data）发送数据
         $client=new Client();
         $url="http://1905admin.com/check2";
@@ -209,5 +204,45 @@ class TestController extends Controller
         $sign_str=base64_encode($signature);
         echo "base64 后的 签名：".$sign_str;
     }
+
+//   非对称加密
+    public function encrypt(){
+        $data="123";
+//        使用私钥非对称加密
+//        openssl_get_privatekey(); 获取私钥
+        $path=storage_path("keys/priv.key2");
+        $priv_key = openssl_pkey_get_private("file://".$path);
+//        $priv_key=file_get_contents(storage_path("keys/priv_key2"));
+        openssl_private_encrypt($data,$encrypt_data,$priv_key,OPENSSL_PKCS1_PADDING);
+        var_dump($encrypt_data);
+//        将密文base64
+        $base64_str=base64_encode($encrypt_data);
+        echo $base64_str;
+    }
+
+//    对称加密
+    public function encrypt2(){
+//        echo print_r($_GET);
+        $method="AES-256-CBC";
+        $key="djy";
+        $iv="qwertsdffffghasd";
+
+        $enc_data=openssl_encrypt();
+
+    }
+
+//    public function jiami(){
+//        $key='1905';
+//        $data='hello word';
+//        $method='AES-256-CBC';
+//        $ivlen = openssl_cipher_iv_length($method);
+//        $iv = openssl_random_pseudo_bytes($ivlen);
+//        $ciphertext = openssl_encrypt($data, $method, $key, $options=OPENSSL_RAW_DATA, $iv);
+//        $hmac = hash_hmac('sha256', $ciphertext, $key, $as_binary=true);
+//        // echo $hmac;echo '<br>';
+//        $ciphertext = base64_encode( $iv.$hmac.$ciphertext );
+//        $url='http://1905admin.com/check2?base='.urlencode($ciphertext);
+//        echo file_get_contents($url);
+//    }
 
 }

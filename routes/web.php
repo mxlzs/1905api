@@ -27,6 +27,8 @@ Auth::routes();
 Route::get('/test/md5','Api\TestController@md5');     //get签名
 Route::get('/test/md52','Api\TestController@md52');  //post签名
 Route::get('/test/sign3', 'Api\TestController@sign3');  //私钥签名
+Route::get('/test/encrypt', 'Api\TestController@encrypt');  //非对称加密
+Route::get('/test/encrypt2', 'Api\TestController@encrypt2');  //对称加密
 
 Route::get('/home', 'HomeController@index')->name('home');
 
