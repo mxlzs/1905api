@@ -223,26 +223,49 @@ class TestController extends Controller
 //    对称加密
     public function encrypt2(){
 //        echo print_r($_GET);
-        $method="AES-256-CBC";
         $key="djy";
+        $data='hello wrod';
+        $method="AES-256-CBC";
         $iv="qwertsdffffghasd";
-
-        $enc_data=openssl_encrypt();
-
+        $enc_data=openssl_encrypt($data,$method,$key,OPENSSL_RAW_DATA,$iv);
+        echo "加密密文：".$enc_data;echo "</br>";
+//        将base64
+        $base64_str=base64_encode($enc_data);
+        echo "base64后的密文：".$base64_str;echo "</br>";
+        $url_encode_str = urlencode($base64_str);
+        echo '$url_encode_str : '.$url_encode_str;echo '</br>';
+//        发送加密数据
+        $url="http://1905admin.com/decrypt2?data=".$url_encode_str;
+        echo $url;
+        $response=file_get_contents($url);
+        echo $response;
     }
-
-//    public function jiami(){
-//        $key='1905';
-//        $data='hello word';
-//        $method='AES-256-CBC';
-//        $ivlen = openssl_cipher_iv_length($method);
-//        $iv = openssl_random_pseudo_bytes($ivlen);
-//        $ciphertext = openssl_encrypt($data, $method, $key, $options=OPENSSL_RAW_DATA, $iv);
-//        $hmac = hash_hmac('sha256', $ciphertext, $key, $as_binary=true);
-//        // echo $hmac;echo '<br>';
-//        $ciphertext = base64_encode( $iv.$hmac.$ciphertext );
-//        $url='http://1905admin.com/check2?base='.urlencode($ciphertext);
-//        echo file_get_contents($url);
+//    public function encrypt3(){
+//        $data=[
+//            'name' => 'djy',
+//            'email' => '1370725086@qq.com',
+//        ];
+//        echo '<pre>';print_r($data);echo '</pre>';
+//        $json_str=json_encode($data);
+//        echo "原文: ".$json_str;echo '</br>';
+//        //加密
+//        $method ='AES-256-CBC';
+//        $key='1905api';
+//        $iv='asdfghjklpoiuytr';
+//        $enc_data=openssl_encrypt($json_str, $method, $key,OPENSSL_RAW_DATA,$iv);
+//        echo "加密后密文: ".$enc_data;echo '</br>';
+//        //base64encode 密文
+//        $base64_str = base64_encode($enc_data);
+//        echo "base64_str: ".$base64_str;echo '</br>';
+//
+//        //url_encode
+//        $url_encode_str = urlencode($base64_str);
+//        echo '$url_encode_str : '.$url_encode_str;echo '</br>';
+//        //发送加密数据
+//        $url="http://1905admin.com/decrypt3?data=".$url_encode_str;
+//        echo $url;echo '</br>';
+//        $response=file_get_contents($url);
+//        echo $response;
 //    }
 
 }
