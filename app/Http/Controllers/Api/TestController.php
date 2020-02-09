@@ -240,32 +240,5 @@ class TestController extends Controller
         $response=file_get_contents($url);
         echo $response;
     }
-//    public function encrypt3(){
-//        $data=[
-//            'name' => 'djy',
-//            'email' => '1370725086@qq.com',
-//        ];
-//        echo '<pre>';print_r($data);echo '</pre>';
-//        $json_str=json_encode($data);
-//        echo "原文: ".$json_str;echo '</br>';
-//        //加密
-//        $method ='AES-256-CBC';
-//        $key='1905api';
-//        $iv='asdfghjklpoiuytr';
-//        $enc_data=openssl_encrypt($json_str, $method, $key,OPENSSL_RAW_DATA,$iv);
-//        echo "加密后密文: ".$enc_data;echo '</br>';
-//        //base64encode 密文
-//        $base64_str = base64_encode($enc_data);
-//        echo "base64_str: ".$base64_str;echo '</br>';
-//
-//        //url_encode
-//        $url_encode_str = urlencode($base64_str);
-//        echo '$url_encode_str : '.$url_encode_str;echo '</br>';
-//        //发送加密数据
-//        $url="http://1905admin.com/decrypt3?data=".$url_encode_str;
-//        echo $url;echo '</br>';
-//        $response=file_get_contents($url);
-//        echo $response;
-//    }
 
 }

@@ -30,7 +30,7 @@ Route::get('/test/sign3','Api\TestController@sign3');  //私钥签名
 Route::get('/test/encrypt','Api\TestController@encrypt');  //非对称加密
 Route::get('/test/encrypt2','Api\TestController@encrypt2');  //对称加密
 
-Route::get('/test/encrypt3','Api\TestController@encrypt3');
+//Route::get('/test/encrypt3','Api\TestController@encrypt3');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
