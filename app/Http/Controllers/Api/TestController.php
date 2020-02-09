@@ -204,40 +204,5 @@ class TestController extends Controller
         $sign_str=base64_encode($signature);
         echo "base64 后的 签名：".$sign_str;
     }
-    //   非对称加密
-    public function encrypt(){
-        $data="123";
-//        使用私钥非对称加密
-//        openssl_get_privatekey(); 获取私钥
-        $path=storage_path("keys/priv.key2");
-        $priv_key = openssl_pkey_get_private("file://".$path);
-//        $priv_key=file_get_contents(storage_path("keys/priv_key2"));
-        openssl_private_encrypt($data,$encrypt_data,$priv_key,OPENSSL_PKCS1_PADDING);
-        var_dump($encrypt_data);
-//        将密文base64
-        $base64_str=base64_encode($encrypt_data);
-        echo $base64_str;
-    }
-
-//    对称加密
-    public function encrypt2(){
-//        echo print_r($_GET);
-        $key="djy";
-        $data='hello wrod';
-        $method="AES-256-CBC";
-        $iv="qwertsdffffghasd";
-        $enc_data=openssl_encrypt($data,$method,$key,OPENSSL_RAW_DATA,$iv);
-        echo "加密密文：".$enc_data;echo "</br>";
-//        将base64
-        $base64_str=base64_encode($enc_data);
-        echo "base64后的密文：".$base64_str;echo "</br>";
-        $url_encode_str = urlencode($base64_str);
-        echo '$url_encode_str : '.$url_encode_str;echo '</br>';
-//        发送加密数据
-        $url="http://1905admin.com/decrypt2?data=".$url_encode_str;
-        echo $url;
-        $response=file_get_contents($url);
-        echo $response;
-    }
 
 }
