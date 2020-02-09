@@ -204,8 +204,7 @@ class TestController extends Controller
         $sign_str=base64_encode($signature);
         echo "base64 后的 签名：".$sign_str;
     }
-
-//   非对称加密
+    //   非对称加密
     public function encrypt(){
         $data="123";
 //        使用私钥非对称加密
